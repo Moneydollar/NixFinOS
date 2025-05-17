@@ -103,8 +103,38 @@ mkdir -p "hosts/$hostName"
 
 # --- Copy & Generate Host Files ---
 info "Copying hardware.nix and users.nix..."
-cp hosts/default/hardware.nix hosts/default/users.nix hosts/"$hostName"/
-ok "hardware.nix and users.nix copied."
+cp hosts/default/hardware.nix  hosts/"$hostName"/
+ok "hardware.nix copied."
+
+
+info "Generating users.nix..."
+cat > "hosts/$hostName/users.nix" <<EOF
+{ pkgs, username, ... }:
+
+let
+  inherit (import ./variables.nix) gitUsername;
+in
+{
+  users.users."${username}" = {
+    homeMode = "755";
+    isNormalUser = true;
+    description = "\${gitUsername}";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "libvirtd"
+      "scanner"
+      "lp"
+    ];
+    shell = pkgs.bash;
+    ignoreShellProgramCheck = true;
+    packages = with pkgs; [];
+  };
+}
+EOF
+ok "users.nix created."
+
 
 info "Generating variables.nix with Git info and layout..."
 cat > "hosts/$hostName/variables.nix" <<EOF
