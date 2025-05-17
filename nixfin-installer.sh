@@ -177,6 +177,7 @@ ok "Origin removed."
 info "Setting Git user config for local repo..."
 git config user.name "$gitName"
 git config user.email "$gitEmail"
+git add *
 ok "Local Git user configured."
 
 export HOSTNAME="$hostName"

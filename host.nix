@@ -1,3 +1,0 @@
-{
-  host = builtins.getEnv "HOSTNAME";
-}
