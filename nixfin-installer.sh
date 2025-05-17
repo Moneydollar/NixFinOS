@@ -177,6 +177,8 @@ git config user.name "$gitName"
 git config user.email "$gitEmail"
 ok "Local Git user configured."
 
+export HOSTNAME="$hostName"
+
 # --- Done ---
 echo
 ok "${bold}NixFinOS setup complete!${reset}"

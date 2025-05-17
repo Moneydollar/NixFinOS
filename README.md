@@ -114,7 +114,7 @@ Pull requests, issues, and suggestions are welcome!
 
 ## 📄 License
 
-[MIT](./LICENSE)
+[GPLv3](./LICENSE)
 
 ---
 

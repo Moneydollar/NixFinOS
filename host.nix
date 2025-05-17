@@ -1,7 +1,3 @@
 {
-
-username = "ana";
-host = "nixBox";
-
-
+  host = builtins.getEnv "HOSTNAME";
 }
