@@ -106,7 +106,6 @@ info "Copying hardware.nix and users.nix..."
 cp hosts/default/hardware.nix  hosts/"$hostName"/
 ok "hardware.nix copied."
 
-
 info "Generating users.nix..."
 cat > "hosts/$hostName/users.nix" <<EOF
 { pkgs, username, ... }:
@@ -135,7 +134,6 @@ in
 EOF
 ok "users.nix created."
 
-
 info "Generating variables.nix with Git info and layout..."
 cat > "hosts/$hostName/variables.nix" <<EOF
 {
@@ -160,17 +158,21 @@ info "Generating updated hardware configuration..."
 sudo nixos-generate-config --show-hardware-config > hosts/$hostName/hardware.nix
 ok "Hardware config generated."
 
-# --- Local Git Setup ---
+# --- Write root-level host.nix for flake reference ---
+info "Writing root-level host.nix for flake evaluation..."
+cat > ./host.nix <<EOF
+{
+  host = "$hostName";
+  username = "$username";
+}
+EOF
+ok "host.nix created at root."
+
+
+# --- Git Config ---
 info "Removing remote origin..."
 git remote remove origin || true
 ok "Origin removed."
-
-info "Excluding host-specific files from Git tracking..."
-{
-  echo "hosts/"
-  echo "*/host.nix"
-} >> .git/info/exclude
-ok "Local excludes set."
 
 info "Setting Git user config for local repo..."
 git config user.name "$gitName"
@@ -186,3 +188,4 @@ echo "${bold}To switch to your new config, run:${reset}"
 echo
 echo "  ${cyan}sudo nixos-rebuild switch --flake ~/NixFinOS#$hostName${reset}"
 echo
+echo "${bold}Don't forget to set your username if needed: $username${reset}"
