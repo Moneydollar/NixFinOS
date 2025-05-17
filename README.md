@@ -125,7 +125,7 @@ Inspired by and built with help from:
 - [nix-configs](https://github.com/Misterio77/nix-config)
 - [nix4nvchad](https://github.com/nix-community/nix4nvchad)
 - [rose-pine](https://github.com/rose-pine)
-- [ZaneyOS](https://github.com/ZaneyOS/ZaneyOS) — for creative inspiration and modular system layout
+- [ZaneyOS](https://github.com/ZaneyOS/ZaneyOS) — for creative inspiration, modular system layout, and scripts
 - [Jorge Castro](https://github.com/castrojo) and the [Bluefin](https://github.com/ublue-os) team 
 
 > Built with 💙 and a love for declarative configuration.
